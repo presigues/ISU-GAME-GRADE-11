@@ -10,16 +10,19 @@ import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.*;
 
+
 public class Board extends JPanel implements ActionListener, KeyListener {
 
     // controls the delay between each tick in ms
+    
+    
     private final int DELAY = 25;
     // controls the size of the board
     public static final int TILE_SIZE = 50;
     public static final int ROWS = 20;
     public static final int COLUMNS = 30;
     // controls how many coins appear on the board
-    public static final int NUM_COINS = 50000;
+    public static int NUM_COINS = 50;
     // suppress serialization warning
     private static final long serialVersionUID = 490905409104883233L;
     
@@ -34,7 +37,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         // set the game board size
         setPreferredSize(new Dimension(TILE_SIZE * COLUMNS, TILE_SIZE * ROWS));
         // set the game board background color
-        setBackground(new Color(232, 232, 232));
+        setBackground(new Color(255, 182, 252));
 
         // initialize the game state
         player = new Player();
@@ -100,7 +103,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
     private void drawBackground(Graphics g) {
         // draw a checkered background
-        g.setColor(new Color(214, 214, 214));
+        g.setColor(new Color(174, 153, 223));
         for (int row = 0; row < ROWS; row++) {
             for (int col = 0; col < COLUMNS; col++) {
                 // only color every other tile
@@ -132,7 +135,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
             RenderingHints.KEY_FRACTIONALMETRICS,
             RenderingHints.VALUE_FRACTIONALMETRICS_ON);
         // set the text color and font
-        g2d.setColor(new Color(30, 201, 139));
+        g2d.setColor(new Color(249, 205, 66));
         g2d.setFont(new Font("Lato", Font.BOLD, 25));
         // draw the score in the bottom center of the screen
         // https://stackoverflow.com/a/27740330/4655368
@@ -172,8 +175,13 @@ public class Board extends JPanel implements ActionListener, KeyListener {
             // if the player is on the same tile as a coin, collect it
             if (player.getPos().equals(coin.getPos())) {
                 // give the player some points for picking this up
-                player.addScore(100);
+                Random rand = new Random();
+                int addedscore = rand.nextInt(1000);
+                player.addScore(addedscore);
                 collectedCoins.add(coin);
+                NUM_COINS = NUM_COINS + 1;
+                
+               
             }
         }
         // remove collected coins from the board

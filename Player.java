@@ -35,7 +35,7 @@ public class Player {
         try {
             // you can use just the filename if the image file is in your
             // project folder, otherwise you need to provide the file path.
-            image = ImageIO.read(new File("Images/player.png")); 
+            image = ImageIO.read(new File("Images/Cat.png")); 
         } catch (IOException exc) {
             System.out.println("Error opening image file: " + exc.getMessage());
         }
@@ -61,16 +61,16 @@ public class Player {
         
         // depending on which arrow key was pressed, we're going to move the player by
         // one whole tile for this input
-        if (key == KeyEvent.VK_UP) {
+        if (key == KeyEvent.VK_W) {
             pos.translate(0, -1);
         }
-        if (key == KeyEvent.VK_RIGHT) {
+        if (key == KeyEvent.VK_D) {
             pos.translate(1, 0);
         }
-        if (key == KeyEvent.VK_DOWN) {
+        if (key == KeyEvent.VK_S) {
             pos.translate(0, 1);
         }
-        if (key == KeyEvent.VK_LEFT) {
+        if (key == KeyEvent.VK_A) {
             pos.translate(-1, 0);
         }
     }
