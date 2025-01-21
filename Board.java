@@ -18,9 +18,9 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     
     private final int DELAY = 25;
     // controls the size of the board
-    public static final int TILE_SIZE = 50;
-    public static final int ROWS = 20;
-    public static final int COLUMNS = 30;
+    public static final int TILE_SIZE = 75;
+    public static final int ROWS = 10;
+    public static final int COLUMNS = 20;
     // controls how many coins appear on the board
     public static int NUM_COINS = 50;
     // suppress serialization warning
@@ -159,7 +159,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         // create the given number of coins in random positions on the board.
         // note that there is not check here to prevent two coins from occupying the same
         // spot, nor to prevent coins from spawning in the same spot as the player
-        for (int i = 0; i < NUM_COINS; i++) {
+       for (int i = 0; i < NUM_COINS; i++) {
             int coinX = rand.nextInt(COLUMNS);
             int coinY = rand.nextInt(ROWS);
             coinList.add(new Coin(coinX, coinY));
@@ -179,13 +179,23 @@ public class Board extends JPanel implements ActionListener, KeyListener {
                 int addedscore = rand.nextInt(1000);
                 player.addScore(addedscore);
                 collectedCoins.add(coin);
-                NUM_COINS = NUM_COINS + 1;
+                for (int i = 0; i < NUM_COINS; i++) {
+            int coinX = rand.nextInt(COLUMNS);
+            int coinY = rand.nextInt(ROWS);
+            
+        }
+                
+                
+               
                 
                
             }
         }
         // remove collected coins from the board
         coins.removeAll(collectedCoins);
+        
+        
+        
     }
 
 }
