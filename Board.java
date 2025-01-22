@@ -14,15 +14,19 @@ import javax.swing.*;
 public class Board extends JPanel implements ActionListener, KeyListener {
 
     // controls the delay between each tick in ms
-    
-    
+    int collectcoins = 0;
+    boolean x = false;
+     Random rand = new Random();
+    int coinX;
+            int coinY;
     private final int DELAY = 25;
     // controls the size of the board
     public static final int TILE_SIZE = 75;
     public static final int ROWS = 10;
     public static final int COLUMNS = 20;
     // controls how many coins appear on the board
-    public static int NUM_COINS = 50;
+  
+    int NUM_COINS = 50 - collectcoins;
     // suppress serialization warning
     private static final long serialVersionUID = 490905409104883233L;
     
@@ -32,6 +36,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     // objects that appear on the game board
     private Player player;
     private ArrayList<Coin> coins;
+    ArrayList<Coin> coinList;
 
     public Board() {
         // set the game board size
@@ -78,6 +83,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         drawScore(g);
         for (Coin coin : coins) {
             coin.draw(g, this);
+            repaint();
         }
         player.draw(g, this);
 
@@ -153,21 +159,40 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     }
 
     private ArrayList<Coin> populateCoins() {
-        ArrayList<Coin> coinList = new ArrayList<>();
-        Random rand = new Random();
+        coinList = new ArrayList<>();
+        
 
         // create the given number of coins in random positions on the board.
         // note that there is not check here to prevent two coins from occupying the same
         // spot, nor to prevent coins from spawning in the same spot as the player
+        
+        if(NUM_COINS > 50){
        for (int i = 0; i < NUM_COINS; i++) {
-            int coinX = rand.nextInt(COLUMNS);
-            int coinY = rand.nextInt(ROWS);
+            coinX = rand.nextInt(COLUMNS);
+            coinY = rand.nextInt(ROWS);
             coinList.add(new Coin(coinX, coinY));
         }
+        }else{
+            for (int i = 0; i < NUM_COINS; i++) {
+            coinX = rand.nextInt(COLUMNS);
+            coinY = rand.nextInt(ROWS);
+            coinList.add(new Coin(coinX, coinY));
+        }
+        }
+       
+      
+       
+       
+       
+   
+      
 
         return coinList;
     }
+    
+    
 
+      
     private void collectCoins() {
         // allow player to pickup coins
         ArrayList<Coin> collectedCoins = new ArrayList<>();
@@ -175,24 +200,33 @@ public class Board extends JPanel implements ActionListener, KeyListener {
             // if the player is on the same tile as a coin, collect it
             if (player.getPos().equals(coin.getPos())) {
                 // give the player some points for picking this up
+                
                 Random rand = new Random();
                 int addedscore = rand.nextInt(1000);
                 player.addScore(addedscore);
                 collectedCoins.add(coin);
-                for (int i = 0; i < NUM_COINS; i++) {
-            int coinX = rand.nextInt(COLUMNS);
-            int coinY = rand.nextInt(ROWS);
-            
-        }
-                
-                
+                collectcoins=collectcoins+1;
                
-                
+       
+         
                
             }
+            
+          
+          
         }
         // remove collected coins from the board
-        coins.removeAll(collectedCoins);
+          coins.removeAll(collectedCoins);
+         
+      
+       
+        
+        
+
+
+     
+   
+    
         
         
         
